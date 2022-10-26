@@ -1,0 +1,24 @@
+import misiones.*
+
+describe "misiones" {
+	
+	const juancito = new Arquero(rango = 50, agilidad = 1,copas = 20)
+	const maria = new Guerrera(fuerza= 500, tieneEstrategia = true, copas = 12)
+	const cachito = new Ballestero(rango = 101, agilidad = 1,copas = 50)
+	
+	const misionSinIntegrantes = new MisionEquipo()	
+	const misionIndividual = new MisionIndividual(dificultad = 20, personaje = juancito	)
+	const misionEquipo = new MisionEquipo(personajes = [juancito,maria,cachito]	)
+	
+	test "mision de equipo sin integrantes no puede comenzar" {
+		assert.throwsExceptionLike(new MisionImposibleException(), {misionSinIntegrantes.repartirCopas()})
+	}
+	
+	test "mision individual con personaje sin destreza pero con estregia puede ser superada" {
+		assert.that(misionIndividual.puedeSerSuperada())
+	}
+	
+	test "mision equipo puede ser superada" {
+		assert.that(misionEquipo.puedeSerSuperada())
+	}
+}
